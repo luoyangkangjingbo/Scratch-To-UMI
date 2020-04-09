@@ -16,10 +16,33 @@ import styles from './index.css';
 //   );
 // }
 
+import GUI,{ AppStateHOC, setAppElement } from 'scratch-gui';
+import {compose} from 'redux';
+import ReactDOM from 'react-dom';
+
 export default function() {
+
+  const appTarget = document.createElement('div');
+  appTarget.className = styles.app;
+  document.body.appendChild(appTarget);
+  setAppElement(appTarget);
+  const WrappedGui = compose(
+      AppStateHOC
+  )(GUI);
+
+  ReactDOM.render(
+         <WrappedGui
+            canEditTitle
+            backpackVisible
+            showComingSoon
+            backpackHost={null}
+            canSave={false}
+            onClickLogo={() => {window.location = 'https://scratch.mit.edu'}}
+        />,
+      appTarget
+  )
+
   return (
-    <div>
-      kangjingbo
-    </div>
+    null
   );
 }
