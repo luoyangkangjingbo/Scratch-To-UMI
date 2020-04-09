@@ -1,3 +1,5 @@
+import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 // ref: https://umijs.org/config/
 export default {
@@ -31,4 +33,11 @@ export default {
       },
     }],
   ],
-}
+  chainWebpack(memo) {
+    memo.plugin('copy-scratch-gui')
+      .use(CopyWebpackPlugin, [[{
+        from: path.resolve(__dirname, 'node_modules', 'scratch-gui', 'dist', 'static'),
+        to: 'static',
+      }]]);
+  },
+};
